@@ -1,0 +1,14 @@
+{
+  "name": "gitsync-obsidian-connect",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test test/*.test.cjs",
+    "release:prepare": "node scripts/release.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT"
+}
