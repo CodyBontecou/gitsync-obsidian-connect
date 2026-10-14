@@ -35,16 +35,16 @@ sequenceDiagram
     GitHub-->>App: Repository content
     App->>Vault: Write expiring connection request (no token)
     Note over Connect: Open vault and enable both plugins
-    Connect->>Connect: Generate key pair; keep private key device-local
+    Connect->>Connect: Generate key pair, keep private key device-local
     Connect->>Vault: Write public key for this request
     Connect->>App: Open syncmd://obsidian/connect (IDs only)
     App->>App: Validate bound vault, account, remote and expiry
-    App->>Vault: Read public key; write encrypted token and author details
-    Note over App,Vault: One-use handoff; encrypted response expires in 5 minutes
+    App->>Vault: Read public key, write encrypted token and author details
+    Note over App,Vault: One-use handoff, encrypted response expires in 5 minutes
     App-->>Connect: Return via obsidian://gitsync-connect (status and IDs)
     Connect->>Vault: Read encrypted response
     Connect->>Connect: Decrypt and verify request and remote
-    Connect->>Git: Save credentials; fill missing Git author fields
+    Connect->>Git: Save credentials, fill missing Git author fields
     Connect->>Vault: Remove pending handoff files
     Connect->>Connect: Clear private key
     Git->>GitHub: Pull and push using imported credentials
