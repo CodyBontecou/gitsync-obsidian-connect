@@ -6,6 +6,8 @@ A companion community plugin for Obsidian on iPhone and iPad. Sign into GitHub i
 
 Install **GitSync.md Connect** from its [Obsidian community directory listing](https://community.obsidian.md/plugins/gitsync-connect): select **Add to Obsidian**, then **Install** and **Enable** in Obsidian. No file copying or build tools are needed for directory installation. All automated checks pass for version 0.1.2, including byte-for-byte build verification.
 
+**If Add to Obsidian shows “No results found”:** a newly approved web listing can appear before Obsidian’s in-app directory updates. [Obsidian documents a delay of up to 24 hours](https://obsidian.md/blog/future-of-plugins/#how-do-i-submit-a-new-plugin-or-theme). Try the directory link again after that window. If it is still missing, report the listing URL and the failed search to the maintainer. Repeatedly reinstalling Obsidian or signing into GitHub will not add a missing registry entry.
+
 **App compatibility:** connecting requires GitSync.md 2.8.0 or later with companion handoff support. Build 202610141413 is waiting for Apple App Review and will require manual release after approval. Installing the plugin alone does not add handoff support to older app versions.
 
 1. In the compatible GitSync.md app, sign into GitHub, clone your GitHub HTTPS repository into a local folder Obsidian can open, and open that folder as a vault in Obsidian.
