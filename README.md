@@ -2,7 +2,7 @@
 
 A companion community plugin for Obsidian on iPhone and iPad. Sign into GitHub in GitSync.md, clone a repository, then let this plugin configure Obsidian Git without asking for another GitHub sign-in.
 
-## Install
+## Install from the community directory (recommended)
 
 Install **GitSync.md Connect** from its [Obsidian community directory listing](https://community.obsidian.md/plugins/gitsync-connect): select **Add to Obsidian**, then **Install** and **Enable** in Obsidian. No file copying or build tools are needed for directory installation. All automated checks pass for version 0.1.2, including byte-for-byte build verification.
 
@@ -15,7 +15,7 @@ Install **GitSync.md Connect** from its [Obsidian community directory listing](h
 
 Install both plugins separately in each vault you want to connect. The [account dashboard](https://community.obsidian.md/account/plugins/gitsync-connect) is for maintainers; users should use the public listing above.
 
-### Manual installation fallback
+### Manual installation (fallback only)
 
 If directory installation is unavailable, download [main.js](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/download/0.1.2/main.js) and [manifest.json](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/download/0.1.2/manifest.json). Create `.obsidian/plugins/gitsync-connect/` inside the vault, copy both files into it without renaming them, reload Obsidian, and enable **GitSync.md Connect**. On iOS, a computer or file manager that can access hidden `.obsidian` folders may be needed. Install and enable **Git** as described above.
 
@@ -52,7 +52,7 @@ The imported token has the same permissions as the GitSync.md token. Obsidian Gi
 
 `npm test` runs Node tests and compiles a Swift/CryptoKit fixture using the macOS Xcode toolchain. It exercises the actual Swift producer against the JavaScript consumer, credential installation for both storage APIs, cleanup/replay rejection, token overwrite protection, expiry, ciphertext tampering, wrong keys, changed origin URLs, ambiguous Git config and symlink rejection. All credentials in fixtures are fictional.
 
-`npm run build` produces the dependency-free mobile-compatible CommonJS bundle, installation folder and zip. `src/connection.js` is the protocol/crypto implementation; `src/main.js` wires Obsidian lifecycle, commands and URL callbacks. No Node APIs are used in the plugin runtime.
+`npm run build` produces the dependency-free mobile-compatible CommonJS bundle and installation folder using Node alone. `npm run release:prepare` additionally creates ZIPs and checksums for development and CI; these are not the recommended user installation route. `src/connection.js` is the protocol/crypto implementation; `src/main.js` wires Obsidian lifecycle, commands and URL callbacks. No Node APIs are used in the plugin runtime.
 
 The initial candidate passed the app-switch round trip and a real private-repository pull and push on a physical iPhone. Before each release, verify the app-switch round trip and a real Obsidian Git pull/push on an iPhone with a disposable private GitHub vault. Automated tests do not establish real-device Obsidian lifecycle behavior.
 
