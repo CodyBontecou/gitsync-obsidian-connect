@@ -14,8 +14,13 @@ assert.equal(pkg.version, manifest.version, 'Package and manifest versions must 
 assert.equal(versions[manifest.version], manifest.minAppVersion, 'versions.json must include this release');
 assert.equal(manifest.id, 'gitsync-connect');
 assert.equal(manifest.isDesktopOnly, false);
+assert.ok(!/obsidian/i.test(manifest.description), 'Directory descriptions must not contain Obsidian');
+assert.ok(manifest.description.length <= 250 && manifest.description.endsWith('.'), 'Use a short description ending in a period');
 execFileSync(process.execPath, ['build.mjs'], { cwd: fileURLToPath(root), stdio: 'inherit' });
 const dist = new URL('dist/', root);
+// ZIP packaging is optional release preparation, never a build requirement.
+await rm(new URL('gitsync-connect.zip', dist), { force: true });
+execFileSync('zip', ['-qr', 'gitsync-connect.zip', 'gitsync-connect'], { cwd: fileURLToPath(dist) });
 for (const name of ['main.js', 'manifest.json']) await copyFile(new URL(name, root), new URL(name, dist));
 
 // Export a standalone repository; the native source snapshot keeps the
@@ -23,7 +28,7 @@ for (const name of ['main.js', 'manifest.json']) await copyFile(new URL(name, ro
 const source = new URL('source/', dist);
 await rm(source, { recursive: true, force: true });
 await mkdir(source, { recursive: true });
-for (const name of ['src', 'test', 'scripts', '.github', '.gitignore', 'README.md', 'RELEASE.md', 'SUBMISSION.md', 'CHANGELOG.md', 'LICENSE', 'package.json', 'manifest.json', 'versions.json', 'main.js', 'build.mjs']) {
+for (const name of ['src', 'test', 'scripts', '.github', '.gitignore', 'README.md', 'RELEASE.md', 'SUBMISSION.md', 'CHANGELOG.md', 'LICENSE', 'package.json', 'package-lock.json', 'manifest.json', 'versions.json', 'main.js', 'build.mjs']) {
     await cp(new URL(name, root), new URL(name, source), { recursive: true });
 }
 let nativeSource;
