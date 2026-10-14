@@ -4,7 +4,7 @@ A companion community plugin for Obsidian on iPhone and iPad. Sign into GitHub i
 
 ## Install
 
-Version [0.1.0](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/tag/0.1.0) is available for manual installation. This plugin is not yet listed in Obsidian’s community directory.
+Version [0.1.2](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/tag/0.1.2) is available for manual installation. This plugin is not yet listed in Obsidian’s community directory.
 
 **App compatibility:** this plugin requires a GitSync.md app build containing the companion handoff. The tested development build was 2.6.0; the public 2.6.0 version number alone does not establish support. The matching native app update has not been confirmed publicly available. Installing the plugin alone does not add handoff support to an older app.
 
