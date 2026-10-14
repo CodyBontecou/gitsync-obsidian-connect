@@ -1,6 +1,6 @@
 # Obsidian community directory submission
 
-The entry is submitted at https://community.obsidian.md/plugins/gitsync-connect. All automated checks completed successfully for 0.1.2 (commit 333ed21), including artifact attestation and byte-for-byte build verification. The compatible native GitSync.md update remains prepared in App Store Connect and has not been released publicly. The material below records the submission and remaining native-app release requirements.
+The entry is submitted at https://community.obsidian.md/plugins/gitsync-connect. All automated checks completed successfully for 0.1.2 (commit 333ed21), including artifact attestation and byte-for-byte build verification. The compatible native GitSync.md update is waiting for Apple App Review with manual release after approval and has not been released publicly. The material below records the submission and remaining native-app release requirements.
 
 ## Entry
 

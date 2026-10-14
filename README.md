@@ -6,7 +6,7 @@ A companion community plugin for Obsidian on iPhone and iPad. Sign into GitHub i
 
 Version [0.1.2](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/tag/0.1.2) is available for manual installation. Its [community directory entry](https://community.obsidian.md/plugins/gitsync-connect) is live, and all automated checks pass for 0.1.2, including byte-for-byte build verification.
 
-**App compatibility:** this plugin requires a GitSync.md app build containing the companion handoff. The tested development build was 2.6.0; the public 2.6.0 version number alone does not establish support. GitSync.md 2.8.0 build 202610141413 contains this support and has been uploaded to App Store Connect; it has not yet been submitted to Apple App Review or released publicly. Installing the plugin alone does not add handoff support to an older app.
+**App compatibility:** this plugin requires a GitSync.md app build containing the companion handoff. The tested development build was 2.6.0; the public 2.6.0 version number alone does not establish support. GitSync.md 2.8.0 build 202610141413 contains this support and has been uploaded to App Store Connect; it is waiting for Apple App Review and will require manual release after approval. Installing the plugin alone does not add handoff support to an older app.
 
 Download [main.js](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/download/0.1.2/main.js) and [manifest.json](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/download/0.1.2/manifest.json) from the release. Users do not need Node or a build tool. Developers can build locally with `npm run release:prepare`. See [release instructions](RELEASE.md).
 
