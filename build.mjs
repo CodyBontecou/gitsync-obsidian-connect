@@ -1,6 +1,4 @@
 import { readFile, writeFile, mkdir, copyFile, rm } from 'node:fs/promises';
-import { execFileSync } from 'node:child_process';
-import { fileURLToPath } from 'node:url';
 const core = await readFile(new URL('./src/connection.js', import.meta.url), 'utf8');
 const entry = await readFile(new URL('./src/main.js', import.meta.url), 'utf8');
 const bundle = entry.replace('require("./connection")', `(() => { const module = { exports: {} };\n${core}\nreturn module.exports; })()`);
@@ -9,5 +7,3 @@ const directory = new URL('./dist/gitsync-connect/', import.meta.url);
 await rm(directory, { recursive: true, force: true });
 await mkdir(directory, { recursive: true });
 for (const name of ['main.js', 'manifest.json', 'LICENSE']) await copyFile(new URL(name, import.meta.url), new URL(name, directory));
-await rm(new URL('./dist/gitsync-connect.zip', import.meta.url), { force: true });
-execFileSync('zip', ['-qr', 'gitsync-connect.zip', 'gitsync-connect'], { cwd: fileURLToPath(new URL('./dist/', import.meta.url)) });

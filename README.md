@@ -4,11 +4,11 @@ A companion community plugin for Obsidian on iPhone and iPad. Sign into GitHub i
 
 ## Install
 
-Version [0.1.1](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/tag/0.1.1) is available for manual installation. Its [community directory entry](https://community.obsidian.md/plugins/gitsync-connect) is live with automated review pending; in-app installation approval has not yet been verified.
+Version [0.1.2](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/tag/0.1.2) is available for manual installation. Its [community directory entry](https://community.obsidian.md/plugins/gitsync-connect) is live with automated review pending; in-app installation approval has not yet been verified.
 
 **App compatibility:** this plugin requires a GitSync.md app build containing the companion handoff. The tested development build was 2.6.0; the public 2.6.0 version number alone does not establish support. GitSync.md 2.8.0 build 202610141413 contains this support and has been uploaded to App Store Connect; it has not yet been submitted to Apple App Review or released publicly. Installing the plugin alone does not add handoff support to an older app.
 
-Download [main.js](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/download/0.1.1/main.js) and [manifest.json](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/download/0.1.1/manifest.json) from the release. Users do not need Node or a build tool. Developers can build locally with `npm run release:prepare`. See [release instructions](RELEASE.md).
+Download [main.js](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/download/0.1.2/main.js) and [manifest.json](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/download/0.1.2/manifest.json) from the release. Users do not need Node or a build tool. Developers can build locally with `npm run release:prepare`. See [release instructions](RELEASE.md).
 
 1. Create a `gitsync-connect` folder inside your vault's `.obsidian/plugins/` directory.
 2. Copy the downloaded `main.js` and `manifest.json` into that folder. Keep both filenames unchanged.
@@ -81,7 +81,7 @@ The imported token has the same permissions as the GitSync.md token. Obsidian Gi
 
 `npm test` runs Node tests and compiles a Swift/CryptoKit fixture using the macOS Xcode toolchain. It exercises the actual Swift producer against the JavaScript consumer, credential installation for both storage APIs, cleanup/replay rejection, token overwrite protection, expiry, ciphertext tampering, wrong keys, changed origin URLs, ambiguous Git config and symlink rejection. All credentials in fixtures are fictional.
 
-`npm run build` produces the dependency-free mobile-compatible CommonJS bundle, installation folder and zip. `src/connection.js` is the protocol/crypto implementation; `src/main.js` wires Obsidian lifecycle, commands and URL callbacks. No Node APIs are used in the plugin runtime.
+`npm run build` uses Node alone to produce the dependency-free mobile-compatible CommonJS bundle and installation folder. `npm run release:prepare` additionally creates optional development ZIPs and checksums and requires the zip command. `src/connection.js` is the protocol/crypto implementation; `src/main.js` wires Obsidian lifecycle, commands and URL callbacks. No Node APIs are used in the plugin runtime.
 
 The initial candidate passed the app-switch round trip and a real private-repository pull and push on a physical iPhone. Before each release, verify the app-switch round trip and a real Obsidian Git pull/push on an iPhone with a disposable private GitHub vault. Automated tests do not establish real-device Obsidian lifecycle behavior.
 

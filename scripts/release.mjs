@@ -18,6 +18,9 @@ assert.ok(!/obsidian/i.test(manifest.description), 'Directory descriptions must 
 assert.ok(manifest.description.length <= 250 && manifest.description.endsWith('.'), 'Use a short description ending in a period');
 execFileSync(process.execPath, ['build.mjs'], { cwd: fileURLToPath(root), stdio: 'inherit' });
 const dist = new URL('dist/', root);
+// ZIP packaging is optional release preparation, never a build requirement.
+await rm(new URL('gitsync-connect.zip', dist), { force: true });
+execFileSync('zip', ['-qr', 'gitsync-connect.zip', 'gitsync-connect'], { cwd: fileURLToPath(dist) });
 for (const name of ['main.js', 'manifest.json']) await copyFile(new URL(name, root), new URL(name, dist));
 
 // Export a standalone repository; the native source snapshot keeps the

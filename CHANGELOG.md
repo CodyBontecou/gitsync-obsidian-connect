@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.2 — 2026-10-14
+
+- Make the standard build work with Node alone; move optional ZIP packaging into release preparation.
+- Add a regression check that builds with an empty PATH and compares the generated bundle to the committed bundle.
+- Keep the attested two-file release format introduced in 0.1.1. The plugin runtime remains unchanged.
+
 ## 0.1.1 — 2026-10-14
 
 - Include a dependency lockfile so automated build verification can run.
