@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.1 — 2026-10-14
+
+- Include a dependency lockfile so automated build verification can run.
+- Correct the manifest description for the community directory.
+- Generate GitHub build provenance attestations for main.js and manifest.json in the tagged release workflow.
+- Publish only supported installer files as release attachments. Local ZIPs and checksums remain development/CI artifacts.
+- Include the README authentication flow diagram.
+
+The plugin runtime is unchanged from the iPhone-tested 0.1.0 bundle. Native handoff support still requires GitSync.md 2.8.0, which is prepared in App Store Connect and not yet publicly released.
+
 ## 0.1.0 — 2026-10-14
 
 - Connect Obsidian Git to an existing GitSync.md GitHub sign-in on iPhone and iPad.

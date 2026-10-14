@@ -4,14 +4,14 @@ A companion community plugin for Obsidian on iPhone and iPad. Sign into GitHub i
 
 ## Install
 
-Version [0.1.0](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/tag/0.1.0) is available for manual installation. Its [community directory entry](https://community.obsidian.md/plugins/gitsync-connect) is live with automated review pending; in-app installation approval has not yet been verified.
+Version [0.1.1](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/tag/0.1.1) is available for manual installation. Its [community directory entry](https://community.obsidian.md/plugins/gitsync-connect) is live with automated review pending; in-app installation approval has not yet been verified.
 
 **App compatibility:** this plugin requires a GitSync.md app build containing the companion handoff. The tested development build was 2.6.0; the public 2.6.0 version number alone does not establish support. GitSync.md 2.8.0 build 202610141413 contains this support and has been uploaded to App Store Connect; it has not yet been submitted to Apple App Review or released publicly. Installing the plugin alone does not add handoff support to an older app.
 
-Download [gitsync-connect.zip](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/download/0.1.0/gitsync-connect.zip). Users do not need Node or a build tool. Developers can build locally with `npm run release:prepare`. See [release instructions](RELEASE.md).
+Download [main.js](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/download/0.1.1/main.js) and [manifest.json](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/download/0.1.1/manifest.json) from the release. Users do not need Node or a build tool. Developers can build locally with `npm run release:prepare`. See [release instructions](RELEASE.md).
 
-1. Download or obtain the prepared `gitsync-connect.zip` install package.
-2. Extract `gitsync-connect.zip`. Copy its `gitsync-connect` folder into your vault's `.obsidian/plugins/` folder. It contains `main.js` and `manifest.json`.
+1. Create a `gitsync-connect` folder inside your vault's `.obsidian/plugins/` directory.
+2. Copy the downloaded `main.js` and `manifest.json` into that folder. Keep both filenames unchanged.
 3. In Obsidian 1.8.7 or later, enable community plugins, install and enable **Git** by Vinzent, and enable **GitSync.md Connect**. If installing manually on iOS, use a computer or a file manager that can access the vault's hidden `.obsidian` directory.
 4. In the updated GitSync.md app, sign into GitHub and clone the vault into a local folder Obsidian can open. Open the cloned folder as a vault. If the repo doesn't already contain the plugin files, install the companion and Git in this new vault as well.
 5. Once both plugins are enabled, the companion automatically opens GitSync.md. GitSync.md writes an encrypted response and returns to Obsidian, which imports the credentials and fills in missing Git author name/email from GitSync.md. No second sign-in or token copy is needed.

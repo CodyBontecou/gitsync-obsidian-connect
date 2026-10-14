@@ -1,6 +1,6 @@
 # Obsidian community directory submission
 
-Prepared for 0.1.0. This document is submission material; it does not mean the plugin is submitted or approved.
+Prepared for 0.1.1. This document is submission material; it does not mean the plugin is submitted or approved.
 
 ## Entry
 
@@ -8,10 +8,10 @@ Prepared for 0.1.0. This document is submission material; it does not mean the p
 - Owner: select Cody Bontecou's personal community profile (linked to GitHub account CodyBontecou).
 - ID: `gitsync-connect`
 - Name: GitSync.md Connect
-- Description: Connect Obsidian Git using your existing GitSync.md GitHub sign-in.
+- Description: Connect the Git plugin using your existing GitSync.md GitHub sign-in.
 - Author: GitSync.md
 - Author website: https://gitsync.md
-- Release: https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/tag/0.1.0
+- Release: https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/tag/0.1.1
 - License: MIT
 - Mobile support: iPhone and iPad. Desktop commands explain that desktop Git should use a credential helper.
 

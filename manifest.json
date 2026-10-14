@@ -1,9 +1,9 @@
 {
   "id": "gitsync-connect",
   "name": "GitSync.md Connect",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "minAppVersion": "1.8.7",
-  "description": "Connect Obsidian Git using your existing GitSync.md GitHub sign-in.",
+  "description": "Connect the Git plugin using your existing GitSync.md GitHub sign-in.",
   "author": "GitSync.md",
   "authorUrl": "https://gitsync.md",
   "isDesktopOnly": false
