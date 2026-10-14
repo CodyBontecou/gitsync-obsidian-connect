@@ -18,6 +18,40 @@ Download [gitsync-connect.zip](https://github.com/CodyBontecou/gitsync-obsidian-
 
 You can install the companion after cloning: connection requests remain valid for seven days. The app prepares requests for GitHub HTTPS clones authenticated with its GitHub OAuth/PAT account; opening that repository as an Obsidian vault activates the handoff. Public unauthenticated, SSH, non-GitHub and per-repo HTTPS-token clones are excluded. The vault must use a regular `.git` directory at its root, without custom Git directory/base-path settings or alternate push destinations.
 
+## How your sign-in connects
+
+Sign into GitHub in GitSync.md once, then open the cloned vault in Obsidian with both plugins enabled. The companion connects Obsidian Git through this local handoff:
+
+```mermaid
+sequenceDiagram
+    participant GitHub
+    participant App as GitSync.md
+    participant Vault as Vault (.git)
+    participant Connect as GitSync.md Connect
+    participant Git as Obsidian Git
+
+    Note over App: GitHub sign-in is already saved in Keychain
+    App->>GitHub: Clone the GitHub HTTPS repository
+    GitHub-->>App: Repository content
+    App->>Vault: Write expiring connection request (no token)
+    Note over Connect: Open vault and enable both plugins
+    Connect->>Connect: Generate key pair; keep private key device-local
+    Connect->>Vault: Write public key for this request
+    Connect->>App: Open syncmd://obsidian/connect (IDs only)
+    App->>App: Validate bound vault, account, remote and expiry
+    App->>Vault: Read public key; write encrypted token and author details
+    Note over App,Vault: One-use handoff; encrypted response expires in 5 minutes
+    App-->>Connect: Return via obsidian://gitsync-connect (status and IDs)
+    Connect->>Vault: Read encrypted response
+    Connect->>Connect: Decrypt and verify request and remote
+    Connect->>Git: Save credentials; fill missing Git author fields
+    Connect->>Vault: Remove pending handoff files
+    Connect->>Connect: Clear private key
+    Git->>GitHub: Pull and push using imported credentials
+```
+
+No token is placed in an app-switch URL or a tracked vault file. Nonsecret connection metadata stays under `.git` for explicit reconnection. Existing Git credentials are preserved unless you choose **Reconnect this vault**. Obsidian Git stores its own imported copy: signing out of GitSync.md does not clear that copy. See [Credential handling](#credential-handling) for storage and revocation details.
+
 ## Commands and troubleshooting
 
 - **Connect this vault** renews the connection request and retries an interrupted connection. Reopen the vault after enabling Git if its initialization is still underway.
