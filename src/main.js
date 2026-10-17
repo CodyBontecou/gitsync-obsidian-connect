@@ -44,7 +44,16 @@ module.exports = class GitSyncConnect extends Plugin {
             // Manual retries renew the native request (also after token rotation).
             const url = manual ? await this.connection.renew(replace) : await this.connection.begin(replace);
             if (url === "connected") new Notice("Obsidian Git is connected to GitSync.md.");
-            else if (url) window.open(url, "_self");
+            else if (url) {
+                // iOS can drop a second app launch while Obsidian is still
+                // handling the native app's return URL. Let that transition
+                // finish before opening the next leg of the handoff.
+                window.clearTimeout(this.handoff);
+                this.handoff = window.setTimeout(() => {
+                    this.handoff = null;
+                    window.open(url, "_self");
+                }, 750);
+            }
             else if (manual) new Notice("No connection is waiting. Clone this vault with GitSync.md while signed into GitHub.");
         } catch (error) {
             // Only our own descriptive errors are shown by begin; never print
@@ -53,5 +62,8 @@ module.exports = class GitSyncConnect extends Plugin {
                 ? error.message : "Could not start the connection. Enable Obsidian Git and check that this vault was cloned with GitSync.md.");
         }
     }
-    onunload() { window.clearTimeout(this.retry); }
+    onunload() {
+        window.clearTimeout(this.retry);
+        window.clearTimeout(this.handoff);
+    }
 };

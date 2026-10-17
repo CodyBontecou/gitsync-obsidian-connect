@@ -192,7 +192,7 @@ test('plugin lifecycle automatically opens GitSync.md and imports on return to t
     await plugin.onload();
     assert.equal(commands.length, 2);
     ready();
-    for (let i = 0; opened.length === 0 && i < 100; i++) await new Promise(resolve => setTimeout(resolve, 5));
+    for (let i = 0; opened.length === 0 && i < 400; i++) await new Promise(resolve => setTimeout(resolve, 5));
     assert.equal(opened.length, 1);
     assert.equal(new URL(opened[0]).host, 'obsidian');
     const pending = app.loadLocalStorage(PENDING_KEY);
@@ -213,4 +213,67 @@ test('imports clone author identity needed by Obsidian Git pull, preserving exis
     assert.equal(config.get('user.name'), 'Fixture Author');
     assert.equal(config.get('user.email'), 'existing@example.invalid');
     assert.equal(store.get(), 'fixture-token');
+});
+
+test('reconnect defers app launches beyond the incoming iOS URL callback', async () => {
+    const root = path.join(temporary, 'reconnect-lifecycle-vault');
+    await fs.mkdir(path.join(root, DIRECTORY), { recursive: true });
+    await fs.writeFile(path.join(root, DIRECTORY, 'connection.json'), JSON.stringify(request()));
+    await fs.writeFile(path.join(root, '.git/config'), `[remote "origin"]\nurl = ${remoteURL}\n`);
+    const app = appFixture(root), { git, store } = gitFixture();
+    await store.set('old-token');
+    git.localStorage.setUsername('old-user');
+    app.workspace = { onLayoutReady: () => {} };
+    app.plugins = { getPlugin: () => git };
+    let protocol;
+    const commands = [], opened = [], notices = [], timers = new Map();
+    let nextTimer = 0;
+    const module = { exports: {} };
+    require('node:vm').runInNewContext(await fs.readFile(path.join(__dirname, '../src/main.js'), 'utf8'), {
+        module,
+        window: {
+            open: url => opened.push(url),
+            setTimeout: (callback, delay) => { const id = ++nextTimer; timers.set(id, { callback, delay }); return id; },
+            clearTimeout: id => timers.delete(id)
+        },
+        require: name => name === './connection' ? require('../src/connection') : {
+            Plugin: class {
+                registerObsidianProtocolHandler(name, callback) { protocol = callback; }
+                addCommand(command) { commands.push(command); }
+            },
+            Notice: class { constructor(message) { notices.push(message); } },
+            Platform: { isMobileApp: true }
+        }
+    });
+    const plugin = new module.exports(); plugin.app = app;
+    await plugin.onload();
+    function dispatch() {
+        assert.equal(timers.size, 1);
+        const [id, timer] = timers.entries().next().value;
+        assert.ok(timer.delay >= 750, 'allow iOS to finish the incoming URL transition');
+        timers.delete(id); timer.callback();
+    }
+    await commands.find(command => command.id === 'reconnect').callback();
+    dispatch();
+    assert.equal(new URL(opened[0]).pathname, '/prepare');
+    const r = request();
+    await fs.writeFile(path.join(root, DIRECTORY, 'request.json'), JSON.stringify(r));
+    await protocol({ status: 'prepared', requestID: r.requestID, vault: app.vault.getName() });
+    assert.equal(opened.length, 1, 'the next app launch must not run inside the incoming URL callback');
+    const pending = app.loadLocalStorage(PENDING_KEY);
+    assert.equal(pending.replace, true);
+    dispatch();
+    assert.equal(new URL(opened[1]).pathname, '/connect');
+    await fs.writeFile(path.join(root, DIRECTORY, 'response.json'), JSON.stringify(await capsule(pending, {
+        authorName: 'Fixture Author', authorEmail: 'fixture@example.invalid'
+    })));
+    await protocol({ status: 'ready', requestID: r.requestID, vault: app.vault.getName() });
+    assert.equal(store.get(), 'fixture-token');
+    assert.equal(await git.gitManager.getConfig('user.name'), 'Fixture Author');
+    assert.equal(await git.gitManager.getConfig('user.email'), 'fixture@example.invalid');
+    assert.ok(notices.includes('Obsidian Git is connected to GitSync.md.'));
+    await plugin.connect(true, true);
+    assert.equal(timers.size, 1);
+    plugin.onunload();
+    assert.equal(timers.size, 0, 'unloading must cancel delayed app launches');
 });

@@ -19,7 +19,7 @@ Install both plugins separately in each vault you want to connect. The [account 
 
 ### Manual installation (fallback only)
 
-If directory installation is unavailable, download [main.js](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/download/0.1.2/main.js) and [manifest.json](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/download/0.1.2/manifest.json). Create `.obsidian/plugins/gitsync-connect/` inside the vault, copy both files into it without renaming them, reload Obsidian, and enable **GitSync.md Connect**. On iOS, a computer or file manager that can access hidden `.obsidian` folders may be needed. Install and enable **Git** as described above.
+If directory installation is unavailable, download [main.js](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/download/0.1.3/main.js) and [manifest.json](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/download/0.1.3/manifest.json). Create `.obsidian/plugins/gitsync-connect/` inside the vault, copy both files into it without renaming them, reload Obsidian, and enable **GitSync.md Connect**. On iOS, a computer or file manager that can access hidden `.obsidian` folders may be needed. Install and enable **Git** as described above.
 
 Developers can build locally with `npm run release:prepare`. See [release instructions](RELEASE.md).
 

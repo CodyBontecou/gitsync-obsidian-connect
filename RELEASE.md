@@ -2,7 +2,7 @@
 
 ## Current candidate
 
-Version [0.1.2](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/tag/0.1.2) is available through the [Obsidian community directory](https://community.obsidian.md/plugins/gitsync-connect) and in [CodyBontecou/gitsync-obsidian-connect](https://github.com/CodyBontecou/gitsync-obsidian-connect). All automated community checks pass. Recommend the directory’s **Add to Obsidian → Install → Enable** flow for users. Manual asset installation is a fallback; do not recommend downloading a ZIP. See [SUBMISSION.md](SUBMISSION.md) for the prepared directory entry and remaining requirements. The MIT license here applies to this companion plugin, not the parent iOS application.
+Version [0.1.3](https://github.com/CodyBontecou/gitsync-obsidian-connect/releases/tag/0.1.3) is available through the [Obsidian community directory](https://community.obsidian.md/plugins/gitsync-connect) and in [CodyBontecou/gitsync-obsidian-connect](https://github.com/CodyBontecou/gitsync-obsidian-connect). All automated community checks pass. Recommend the directory’s **Add to Obsidian → Install → Enable** flow for users. Manual asset installation is a fallback; do not recommend downloading a ZIP. See [SUBMISSION.md](SUBMISSION.md) for the prepared directory entry and remaining requirements. The MIT license here applies to this companion plugin, not the parent iOS application.
 
 The physical iPhone check passed clone → automatic connection → Obsidian Git pull → commit/push with the app's handoff implementation. Evidence lives in the app repository at `docs/obsidian-iphone-qa-20261014.md`. Release the matching GitSync.md app update before advertising the plugin as generally usable. App version 2.6.0 alone is not sufficient evidence: the tested development build included unreleased handoff code.
 
@@ -24,7 +24,7 @@ Before publication, run `npm test` and `npm run release:prepare` from the export
 ## Publish the candidate
 
 1. Review the license, README, changelog, and exported source, then publish the standalone source to a dedicated public GitHub repository. Choose its final owner/name before adding installation links to announcements.
-2. Keep `package.json`, `manifest.json`, and `versions.json` aligned. Use a plain `0.1.2` tag, without a `v` prefix. The included GitHub workflow validates/tests/builds and creates a **draft** release for matching version tags.
+2. Keep `package.json`, `manifest.json`, and `versions.json` aligned. Use a plain `0.1.3` tag, without a `v` prefix. The included GitHub workflow validates/tests/builds and creates a **draft** release for matching version tags.
 3. Review the draft assets and their GitHub attestations, then publish it. Attach only `main.js` and `manifest.json` (and `styles.css` if a future release needs it). Do not attach ZIPs or checksum files; they remain local/CI artifacts. Until this step, there is no public download or BRAT installation target. Include the compatible GitSync.md app release/build in the release notes.
 4. Verify a clean manual installation of the two published installer files into a disposable vault. On an iPhone with the compatible app, enable Git and this plugin, clone/open the vault, trust the plugins, and verify both pull and push. Confirm no token entry in Obsidian is required.
 5. Optionally test BRAT against the final repository. This is a beta distribution path and has not yet been verified for this candidate. Never advertise the app monorepo path as a BRAT target.

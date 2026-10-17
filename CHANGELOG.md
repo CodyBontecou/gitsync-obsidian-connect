@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3 — 2026-10-17
+
+- Fix iPhone/iPad reconnect stopping after returning from GitSync.md. Defer app launches until the incoming URL transition finishes so credentials and missing Git author details can be imported.
+- Cancel queued app launches when the plugin unloads.
+- Add a regression test covering renewal, replacement of existing credentials, encrypted author import, and delayed-launch cleanup. Verified reconnect on a physical iPhone with Obsidian 1.14.5 and Git 2.41.1.
+
 ## 0.1.2 — 2026-10-14
 
 - Make the standard build work with Node alone; move optional ZIP packaging into release preparation.
